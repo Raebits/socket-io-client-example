@@ -1,11 +1,26 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { io } from "socket.io-client";
 import { Inter } from '@next/font/google'
 import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const socket = io("https://edit-me.com");
+  // server-side
+  socket.on("connection", (socket) => {
+    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+  });
+
+  // client-side
+  socket.on("connect", () => {
+    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+  });
+
+  socket.on("disconnect", () => {
+    console.log(socket.id); // undefined
+  });
   return (
     <>
       <Head>
